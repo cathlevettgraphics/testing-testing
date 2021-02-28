@@ -1,13 +1,14 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
+import Weather from '../../components/Weather/Weather';
 
-function Home() {
+function WeatherPage() {
   return (
     <div>
       <Header />
-      <h1>home</h1>
+      <Weather />
     </div>
   );
 }
 
-export default Home;
+export default WeatherPage;
