@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function Weather() {
-  const [term, setTerm] = useState('london');
+  const [term, setTerm] = useState('');
   const [weather, setWeather] = useState({});
 
   // const [loading, setLoading] = useState(false);
@@ -48,7 +48,7 @@ function Weather() {
         setWeather(data);
         console.log(`weather data for ${term} is`, data);
         console.log('api response is', typeof weather);
-        // setTerm('');
+        setTerm('');
       });
   };
 
@@ -65,6 +65,7 @@ function Weather() {
           data-testid="search-input"
           onChange={handleChange}
           value={term}
+          className="input"
         ></input>
         <button data-testid="search-btn">search</button>
       </form>
