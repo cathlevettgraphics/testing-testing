@@ -32,26 +32,22 @@ describe('the weather api element', () => {
     expect(onChange).toBeInTheDocument();
   });
 
-  test('should have default city of london', async () => {
-    render(<Weather />);
-    const inputCity = screen.getByTestId('search-input');
-    expect(inputCity.value).toBe('london');
-  });
-
   test('should log data to console when search button used', () => {
     render(<Weather />);
   });
 
-  test('should save to local storage', () => {
-    render(<Weather />);
-    // Test here
+  test('save city value to local storage', () => {
+    const spy = jest.spyOn(Storage.prototype, 'setItem');
+    render(<Weather spy={spy} />);
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
   });
-  
+
   test('should load data from local storage', () => {
     render(<Weather />);
     // Test here
   });
-  
+
   test('should render data to the page', () => {
     render(<Weather />);
     // Test here
