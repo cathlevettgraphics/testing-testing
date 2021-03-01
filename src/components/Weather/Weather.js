@@ -9,7 +9,7 @@ function Weather(spy = () => {}) {
   const API_KEY = '5c8b3a7a1caf562b635ae7c8b9bcd5a4';
   const API_ENDPOINT = `https://api.openweathermap.org/data/2.5/weather?q=${term}&units=metric&appid=${API_KEY}`;
 
-  let weatherArray = [];
+  let weatherArray;
 
   let handleChange = (e) => {
     const term = e.target.value;
@@ -22,27 +22,20 @@ function Weather(spy = () => {}) {
     fetch(API_ENDPOINT)
       .then((response) => response.json())
       .then((data) => {
-        setWeather(data);
         weatherArray = data;
+        localStorage.setItem('weather', JSON.stringify(data));
+        setWeather(data);
         console.log(`weather data for ${term} is`, data);
-        // console.log('api response is an', typeof weather);
         setTerm('');
+        console.log('raw weather data', weatherArray);
       });
   };
 
-  useEffect(() => {
-    localStorage.setItem('weather', JSON.stringify(weather));
-  }, [weather, setWeather]);
-
-  // Convert api json object to array
-  Object.keys(weather).forEach((key) =>
-    weatherArray.push({ name: key, value: weather[key] }),
-  );
-
-  // console.log(weatherArray);
-  // console.log(weatherArray[11].value);
-  // console.log('max temp', weatherArray[3].value.temp);
-  // console.log('overall', weatherArray[1].value[0].description);
+  // TODO convert api resonse to array and render
+  // weatherArray = Object.entries(weather).map(([key, value]) => {
+  //   const weatherItems = weather[key];
+  //   return weatherItems;
+  // });
 
   return (
     <div>
@@ -60,10 +53,11 @@ function Weather(spy = () => {}) {
         <button data-testid="search-btn">search</button>
       </form>
       <ul>
-        <li>{weatherArray[11].value}</li>
-        <li>temperature today is {weatherArray[3].value.temp}C</li>
-        <li>right now it feels like {weatherArray[3].value.feels_like}C</li>
-        <li> the upshot is {weatherArray[1].value[0].description}</li>
+        {/* <li>{weatherArray}</li> */}
+        {/* <li>{weatherArray[11]}</li> */}
+        {/* <li>temperature today is {weatherArray[3]}C</li> */}
+        {/* <li>right now it feels like {weatherArray[3][0]}C</li>
+        <li> the upshot is {weatherArray[1][0].description}</li> */}
       </ul>
     </div>
   );
